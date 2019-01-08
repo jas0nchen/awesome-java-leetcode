@@ -2,25 +2,67 @@
 
 ## Description
 
-Implement regular expression matching with support for `'.'` and `'*'`.
+Given an input string (`s`) and a pattern (`p`), implement regular expression matching with support for `'.'` and `'*'`.
 
 ```
 '.' Matches any single character.
 '*' Matches zero or more of the preceding element.
+```
 
-The matching should cover the entire input string (not partial).
+The matching should cover the **entire** input string (not partial).
 
-The function prototype should be:
-bool isMatch(const char *s, const char *p)
+**Note:**
 
-Some examples:
-isMatch("aa", "a") → false
-isMatch("aa", "aa") → true
-isMatch("aaa", "aa") → false
-isMatch("aa", "a*") → true
-isMatch("aa", ".*") → true
-isMatch("ab", ".*") → true
-isMatch("aab", "c*a*b") → true
+- `s` could be empty and contains only lowercase letters `a-z`.
+- `p` could be empty and contains only lowercase letters `a-z`, and characters like `.` or `*`.
+
+**Example 1:**
+
+```
+Input:
+s = "aa"
+p = "a"
+Output: false
+Explanation: "a" does not match the entire string "aa".
+```
+
+**Example 2:**
+
+```
+Input:
+s = "aa"
+p = "a*"
+Output: true
+Explanation: '*' means zero or more of the precedeng element, 'a'. Therefore, by repeating 'a' once, it becomes "aa".
+```
+
+**Example 3:**
+
+```
+Input:
+s = "ab"
+p = ".*"
+Output: true
+Explanation: ".*" means "zero or more (*) of any character (.)".
+```
+
+**Example 4:**
+
+```
+Input:
+s = "aab"
+p = "c*a*b"
+Output: true
+Explanation: c can be repeated 0 times, a can be repeated 1 time. Therefore it matches "aab".
+```
+
+**Example 5:**
+
+```
+Input:
+s = "mississippi"
+p = "mis*is*p*."
+Output: false
 ```
 
 **Tags:** String, Dynamic Programming, Backtracking
@@ -28,7 +70,7 @@ isMatch("aab", "c*a*b") → true
 
 ## 思路 0
 
-题意是让让你从判断 `s` 字符串是否正则匹配于 `p`，这道题和[Wildcard Matching][044]很是相似，区别在于 `*`，通配符的 `*` 是可以随意出现的，跟前面字符没有任何关系，其作用是可以表示任意字符串；而正则匹配的 `*` 不能单独存在，前面必须具有一个字符，其意义是表明前面的这个字符个数可以是任意个数，包括 0 个。首先我们用递归的方式来实现，其思路如下：
+题意是让让你从判断 `s` 字符串是否正则匹配于 `p`，这道题和 [Wildcard Matching][044] 很是相似，区别在于 `*`，通配符的 `*` 是可以随意出现的，跟前面字符没有任何关系，其作用是可以表示任意字符串；而正则匹配的 `*` 不能单独存在，前面必须具有一个字符，其意义是表明前面的这个字符个数可以是任意个数，包括 0 个。首先我们用递归的方式来实现，其思路如下：
 
 * 如果 `s` 和 `p` 都为空，那么返回 `true`；
 
